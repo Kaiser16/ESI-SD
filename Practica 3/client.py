@@ -3,6 +3,30 @@ import requests
 
 op = -1
 
+def imprimirHabitacion(habitacion):
+    id = habitacion['id']
+    plazas = habitacion['plazas']
+    equipamiento = habitacion['equipamiento']
+    n = len(equipamiento)
+    cadequip = equipamiento[0]
+    if(n > 1):
+        i = 1
+        while(i < n):
+            if(i < n-1):
+                cadequip += ", "+equipamiento[i]
+            else:
+                cadequip += " y "+equipamiento[i]
+            i += 1
+    ocupada = habitacion['ocupada']
+
+    print("Habitacion "+str(id))
+    print("\t- "+plazas+" plazas")
+    print("\t- Equipamiento: "+cadequip)
+    if(ocupada):
+        print("\t- Ocupada")
+    else:
+        print("\t- Libre")
+
 def altaHabitacion():
     plazas = input("Introduce el numero de plazas: ")
     equipamiento = input("Introduce el equipamiento separado por (,): ")
@@ -44,13 +68,13 @@ def listaHabitaciones():
     res = requests.get("http://localhost:8080/listaHabitaciones")
     print("|LISTA DE HABITACIONES|")
     for valor in res.json():
-        print(res.json()[valor])
+        imprimirHabitacion(res.json()[valor])
 
 def buscarHabitacion():
     id = input("Identificador de la habitacion: ")
     print("|HABITACION "+id+"|")
     res = requests.get("http://localhost:8080/buscarHabitacion/"+id)
-    print(res.json()+"\n")
+    imprimirHabitacion(res.json())
 
 while(op != "0"):
     print("|API HOTEL|")
