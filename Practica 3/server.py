@@ -87,5 +87,15 @@ def lista_habitaciones():
     bd = cargar('bd.json')
     return bd['habitaciones']
 
+@put('/eliminarHabitacion/<identificador>')
+def buscar_habitacion(identificador):
+    try:
+        bd = cargar('bd.json')
+        del bd['habitaciones'][identificador]
+        guardar(bd,'bd.json')
+        return identificador
+    except:
+        return ""
+
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True)

@@ -94,12 +94,21 @@ def buscarHabitacion():
     else:
         imprimirHabitacion(res.json())
 
+def eliminarHabitacion():
+    id = input("Identificador de la habitacion: ")
+    res = requests.put("http://localhost:8080/eliminarHabitacion/"+id)
+    if(res.text == ""):
+        print("La habitación a eliminar no existe")
+    else:
+        print("La habitacion "+res.text+" ha sido eliminada")
+
 while(op != "0"):
     print("|API HOTEL|")
     print("1. Dar de alta habitación")
     print("2. Modificar habitación")
     print("3. Lista de habitaciones")
     print("4. Buscar habitación")
+    print("7. Eliminar habitacion")
     print("0. Salir")
     op = input("\nOpción: ")
     if(op == "1"):
@@ -110,3 +119,5 @@ while(op != "0"):
         listaHabitaciones()
     elif(op == "4"):
         buscarHabitacion()
+    elif(op == "7"):
+        eliminarHabitacion()
