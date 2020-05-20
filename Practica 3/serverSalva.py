@@ -11,7 +11,6 @@ class Course:
 
 @post('/AddCourse')
 def add_course():
-    #import pdb; pdb.set_trace()
 
     data = request.json
 
@@ -30,7 +29,6 @@ def add_course():
 
 @get('/ListCourses')
 def list_courses():
-    #import pdb; pdb.set_trace()
     to_return = []
 
     for key, value in database.items():

@@ -21,18 +21,11 @@ def cargar(filename):
     except:
         datos = {}
         datos['habitaciones'] = {}
-        datos['nHabitaciones'] = 0
         datos['maxId'] = 0
     return datos
 
-class Course:
-    def __init__(self, code, name):
-        self.code = code
-        self.name = name
-
 @post('/altaHabitacion')
 def alta_habitacion():
-    #import pdb; pdb.set_trace()
 
     bd = cargar('bd.json')
 
@@ -40,7 +33,9 @@ def alta_habitacion():
     
     data = request.json
 
-    plazas = data.get('plazas') 
+    plazas = data.get('plazas')
+    if(not plazas.isnumeric()):
+        return ""
     equipamiento = data.get('equipamiento')
     ocupada = data.get('ocupada')
     
@@ -48,7 +43,6 @@ def alta_habitacion():
 
     habitaciones[bd['maxId']] = habitacion.__dict__
     bd['maxId'] += 1
-    bd['nHabitaciones'] += 1
 
     response.headers['Content-Type'] = 'application/json'
 
@@ -67,7 +61,10 @@ def modificar_habitacion(identificador):
     ocupada = data.get('ocupada')
 
     if(plazas != None):
-        habitacion['plazas'] = plazas
+        if(not plazas.isnumeric()):
+            return ""
+        else:
+            habitacion['plazas'] = plazas
     if(equipamiento != None):
         habitacion['equipamiento'] = equipamiento
     if(ocupada != None):
@@ -79,8 +76,11 @@ def modificar_habitacion(identificador):
 
 @get('/buscarHabitacion/<identificador>')
 def buscar_habitacion(identificador):
-    bd = cargar('bd.json')
-    return bd['habitaciones'][identificador]
+    try:
+        bd = cargar('bd.json')
+        return bd['habitaciones'][identificador]
+    except:
+        return ""
 
 @get('/listaHabitaciones')
 def lista_habitaciones():
