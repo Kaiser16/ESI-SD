@@ -1,0 +1,27 @@
+{
+    "habitaciones": {
+        "0": {
+            "id": 0,
+            "plazas": "24",
+            "equipamiento": [
+                "salva",
+                "bubeta",
+                "sara",
+                "gabri"
+            ],
+            "ocupada": false
+        },
+        "1": {
+            "id": 1,
+            "plazas": "25",
+            "equipamiento": [
+                "tele",
+                "coche",
+                "limusina"
+            ],
+            "ocupada": false
+        }
+    },
+    "nHabitaciones": 2,
+    "maxId": 2
+}
