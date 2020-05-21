@@ -97,5 +97,19 @@ def buscar_habitacion(identificador):
     except:
         return ""
 
+@get('/habitaciones/<ocupada>')
+def habitaciones_ocupadas(ocupada):
+    bd = cargar('bd.json')
+    res = list()
+    if ocupada == 'Ocupadas':
+        ocupada = True
+    elif ocupada == 'Desocupadas':
+        ocupada = False
+    for indice in bd['habitaciones']:
+        if bd['habitaciones'][indice]['ocupada'] is ocupada:
+            res.append(bd['habitaciones'][indice])
+    return json.dumps(res, indent=4)
+
+
 if __name__ == '__main__':
     run(host='localhost', port=8080, debug=True)

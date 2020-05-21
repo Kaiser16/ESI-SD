@@ -1,4 +1,14 @@
 {
-    "habitaciones": {},
-    "maxId": 2
+    "habitaciones": {
+        "2": {
+            "id": 2,
+            "plazas": "5",
+            "equipamiento": [
+                "tele",
+                " comida"
+            ],
+            "ocupada": true
+        }
+    },
+    "maxId": 3
 }
