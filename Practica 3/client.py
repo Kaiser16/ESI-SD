@@ -76,7 +76,7 @@ def modificarHabitacion():
                 else:
                     print("Habitación modificada:")
                     imprimirHabitacion(json.loads(res.text))
-            elif op is not '0':
+            elif op != '0':
                 print('Operación no contemplada.\n')
 
 def listaHabitaciones():

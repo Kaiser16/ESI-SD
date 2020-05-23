@@ -110,9 +110,9 @@ def habitaciones_ocupadas(ocupada):
     else:
         return ""
     for indice in bd['habitaciones']:
-        if bd['habitaciones'][indice]['ocupada'] is ocupada:
+        if bd['habitaciones'][indice]['ocupada'] == ocupada:
             res.append(bd['habitaciones'][indice])
-    return '{}' if len(res) is 0 else json.dumps(res, indent=4)
+    return '{}' if len(res) == 0 else json.dumps(res, indent=4)
 
 
 if __name__ == '__main__':
