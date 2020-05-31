@@ -1,0 +1,117 @@
+[
+    {
+        "id": "df4fb64d.dc0b98",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "e3a0d1cb.9bf6a8",
+        "type": "mqtt in",
+        "z": "df4fb64d.dc0b98",
+        "name": "Obtener luz",
+        "topic": "/merakimv/Q2GV-Y4R8-5Z3L/light",
+        "qos": "2",
+        "datatype": "utf8",
+        "broker": "deb32cb2.a00b78",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "5b0af4a0.0ab354"
+            ]
+        ]
+    },
+    {
+        "id": "b4f2f13d.380e6",
+        "type": "debug",
+        "z": "df4fb64d.dc0b98",
+        "name": "Máximo",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 760,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5b0af4a0.0ab354",
+        "type": "json",
+        "z": "df4fb64d.dc0b98",
+        "name": "Cadena a objeto",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "3a945443.0fdd04"
+            ]
+        ]
+    },
+    {
+        "id": "3a945443.0fdd04",
+        "type": "function",
+        "z": "df4fb64d.dc0b98",
+        "name": "Calcular máximo",
+        "func": "var actual = msg.payload.lux;\n\nvar maximo = context.get('maximo') || actual;\n\nif(maximo < actual) {\n    maximo = actual;\n}\n\ncontext.set('maximo', maximo);\n\nmsg.maximo = maximo\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "f9674ad0.a1c41"
+            ]
+        ]
+    },
+    {
+        "id": "f9674ad0.a1c41",
+        "type": "template",
+        "z": "df4fb64d.dc0b98",
+        "name": "Formatear",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "Se ha recibido {{payload.lux}} luxes. \nEl máximo actual es {{maximo}} luxes.",
+        "output": "str",
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "b4f2f13d.380e6"
+            ]
+        ]
+    },
+    {
+        "id": "deb32cb2.a00b78",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "N aleatorio",
+        "broker": "https://test.mosquitto.org/",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": ""
+    }
+]

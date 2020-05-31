@@ -1,0 +1,142 @@
+[
+    {
+        "id": "38ca652f.56bf3a",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "27212607.727da2",
+        "type": "mqtt in",
+        "z": "38ca652f.56bf3a",
+        "name": "Obtener N",
+        "topic": "/sanfer/hola",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "deb32cb2.a00b78",
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "b8e7c469.072f9"
+            ]
+        ]
+    },
+    {
+        "id": "12b34300.7d1b7d",
+        "type": "mqtt out",
+        "z": "38ca652f.56bf3a",
+        "name": "Pasar N",
+        "topic": "/sanfer/hola",
+        "qos": "",
+        "retain": "",
+        "broker": "deb32cb2.a00b78",
+        "x": 760,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "24fb5cd6.2df404",
+        "type": "function",
+        "z": "38ca652f.56bf3a",
+        "name": "Generar N",
+        "func": "msg.n = Math.floor(Math.random()*101);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "df6124cf.5674d8"
+            ]
+        ]
+    },
+    {
+        "id": "840faae6.e87f38",
+        "type": "inject",
+        "z": "38ca652f.56bf3a",
+        "name": "Activador",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "24fb5cd6.2df404"
+            ]
+        ]
+    },
+    {
+        "id": "df6124cf.5674d8",
+        "type": "change",
+        "z": "38ca652f.56bf3a",
+        "name": "Dejar solo N",
+        "rules": [
+            {
+                "t": "move",
+                "p": "n",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 220,
+        "wires": [
+            [
+                "12b34300.7d1b7d"
+            ]
+        ]
+    },
+    {
+        "id": "b8e7c469.072f9",
+        "type": "debug",
+        "z": "38ca652f.56bf3a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 550,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "deb32cb2.a00b78",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "N aleatorio",
+        "broker": "https://test.mosquitto.org/",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": ""
+    }
+]
